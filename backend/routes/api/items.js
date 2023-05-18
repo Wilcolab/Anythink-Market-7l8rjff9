@@ -165,6 +165,8 @@ router.get("/:item", auth.optional, function(req, res, next) {
     .then(function(results) {
       var user = results[0];
 
+      req.item.image= req.item.image !== ''? req.item.image : '/placeholder.png';
+
       return res.json({ item: req.item.toJSONFor(user) });
     })
     .catch(next);
@@ -185,6 +187,7 @@ router.put("/:item", auth.required, function(req, res, next) {
       if (typeof req.body.item.image !== "undefined") {
         req.item.image = req.body.item.image;
       }
+      
 
       if (typeof req.body.item.tagList !== "undefined") {
         req.item.tagList = req.body.item.tagList;
